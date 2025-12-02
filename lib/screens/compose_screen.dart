@@ -40,3 +40,32 @@ class _ComposeScreenState extends State<ComposeScreen> {
     widget.onSend();
     Navigator.pop(context);
   }
+
+ @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Nouveau message'),
+        actions: [
+          PopupMenuButton<String>(
+            icon: Icon(Icons.more_vert),
+            onSelected: (value) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$value sélectionné')));
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'Programmer l\'envoi',
+                child: Row(children: [Icon(Icons.schedule, color: Colors.blue), SizedBox(width: 8), Text('Programmer l\'envoi')]),
+              ),
+              PopupMenuItem(
+                value: 'Mode confidentiel',
+                child: Row(children: [Icon(Icons.lock, color: Colors.green), SizedBox(width: 8), Text('Mode confidentiel')]),
+              ),
+              PopupMenuItem(
+                value: 'Annuler',
+                child: Row(children: [Icon(Icons.delete, color: Colors.red), SizedBox(width: 8), Text('Annuler')]),
+              ),
+            ],
+          ),
+        ],
+      ),
