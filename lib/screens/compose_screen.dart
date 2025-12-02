@@ -23,3 +23,20 @@ class _ComposeScreenState extends State<ComposeScreen> {
     contentController.dispose();
     super.dispose();
   }
+
+    Future<void> _sendEmail() async {
+    if (subjectController.text.isEmpty || contentController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Veuillez remplir tous les champs')),
+      );
+      return;
+    }
+
+    await EmailDatabase.instance.insertEmail(
+      subjectController.text,
+      contentController.text,
+    );
+
+    widget.onSend();
+    Navigator.pop(context);
+  }
