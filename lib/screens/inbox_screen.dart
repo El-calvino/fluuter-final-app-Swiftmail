@@ -8,7 +8,6 @@ class InboxScreen extends StatefulWidget {
   _InboxScreenState createState() => _InboxScreenState();
 }
 
-
 class _InboxScreenState extends State<InboxScreen> {
   String searchQuery = '';
 
@@ -20,10 +19,11 @@ class _InboxScreenState extends State<InboxScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => SettingsScreen()),
-            ),
+            onPressed:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => SettingsScreen()),
+                ),
           ),
         ],
         bottom: PreferredSize(
@@ -36,7 +36,9 @@ class _InboxScreenState extends State<InboxScreen> {
                 prefixIcon: Icon(Icons.search),
                 filled: true,
                 fillColor: Colors.white,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
               onChanged: (value) => setState(() => searchQuery = value),
             ),
@@ -53,10 +55,16 @@ class _InboxScreenState extends State<InboxScreen> {
         child: FutureBuilder<List<Map<String, dynamic>>>(
           future: EmailDatabase.instance.getEmails(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
-            final emails = snapshot.data!
-                .where((email) => email['subject'].toLowerCase().contains(searchQuery.toLowerCase()))
-                .toList();
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
+            final emails =
+                snapshot.data!
+                    .where(
+                      (email) => email['subject'].toLowerCase().contains(
+                        searchQuery.toLowerCase(),
+                      ),
+                    )
+                    .toList();
             if (emails.isEmpty) return Center(child: Text('Aucun message'));
             return ListView.builder(
               itemCount: emails.length,
@@ -81,15 +89,27 @@ class _InboxScreenState extends State<InboxScreen> {
                     setState(() {});
                   },
                   child: Card(
-                    color: Colors.white.withOpacity(0.9), // Pour lisibilité sur fond
+                    color: Colors.white.withOpacity(
+                      0.9,
+                    ), // Pour lisibilité sur fond
                     child: ListTile(
                       leading: CircleAvatar(child: Icon(Icons.email)),
-                      title: Text(email['subject'], style: TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text(email['content'], maxLines: 1, overflow: TextOverflow.ellipsis),
+                      title: Text(
+                        email['subject'],
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        email['content'],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(email['date'].substring(0, 10), style: TextStyle(fontSize: 12)),
+                          Text(
+                            email['date'].substring(0, 10),
+                            style: TextStyle(fontSize: 12),
+                          ),
                           Icon(Icons.star_border),
                         ],
                       ),
@@ -101,3 +121,16 @@ class _InboxScreenState extends State<InboxScreen> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.edit),
+        onPressed:
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ComposeScreen(onSend: () => setState(() {})),
+              ),
+            ),
+      ),
+    );
+  }
+}
