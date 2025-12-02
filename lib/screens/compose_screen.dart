@@ -69,3 +69,59 @@ class _ComposeScreenState extends State<ComposeScreen> {
           ),
         ],
       ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/compose_bg.jpg'), // Image locale
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.85), // Lisibilité sur fond
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                TextField(controller: toController, decoration: InputDecoration(labelText: 'À')),
+                TextField(controller: fromController, decoration: InputDecoration(labelText: 'De')),
+                TextField(controller: subjectController, decoration: InputDecoration(labelText: 'Sujet')),
+                Expanded(child: TextField(controller: contentController, decoration: InputDecoration(labelText: 'Message'), maxLines: null)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.attach_file, color: Colors.blue),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (_) => Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(leading: Icon(Icons.image, color: Colors.purple), title: Text('Photo')),
+                              ListTile(leading: Icon(Icons.camera_alt, color: Colors.orange), title: Text('Caméra')),
+                              ListTile(leading: Icon(Icons.folder, color: Colors.green), title: Text('Fichier')),
+                              ListTile(leading: Icon(Icons.cloud, color: Colors.blueAccent), title: Text('Drive')),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    ElevatedButton.icon(
+                      icon: Icon(Icons.send),
+                      label: Text('Envoyer'),
+                      onPressed: _sendEmail,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
