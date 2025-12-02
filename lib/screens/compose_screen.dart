@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../db/email_database.dart';
 
@@ -24,7 +25,7 @@ class _ComposeScreenState extends State<ComposeScreen> {
     super.dispose();
   }
 
-    Future<void> _sendEmail() async {
+  Future<void> _sendEmail() async {
     if (subjectController.text.isEmpty || contentController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Veuillez remplir tous les champs')),
@@ -41,7 +42,7 @@ class _ComposeScreenState extends State<ComposeScreen> {
     Navigator.pop(context);
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
