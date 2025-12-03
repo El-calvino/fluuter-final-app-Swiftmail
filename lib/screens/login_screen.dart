@@ -27,3 +27,23 @@ Future<void> _login() async {
       setState(() => isLoading = false);
     }
   }
+
+  Future<void> _signup() async {
+    setState(() => isLoading = true);
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Compte créé avec succès')),
+      );
+      Navigator.pushReplacementNamed(context, '/inbox');
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur: ${e.message}')),
+      );
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
