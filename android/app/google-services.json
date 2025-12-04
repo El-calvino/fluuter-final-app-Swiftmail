@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839596746374",
+    "project_id": "cobmail-a5843",
+    "storage_bucket": "cobmail-a5843.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839596746374:android:91290d7020c66d524d5307",
+        "android_client_info": {
+          "package_name": "com.example.flutter-final-app-Swiftmail"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsb7XBEv-0c2MrhPN7Z1V42-E_V2Gktkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
